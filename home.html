@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kall's Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #082C2C;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #004747 0%, #018B8B 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            height: 30px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            display: flex;
+            width: fit-content;
+            height: 25px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #ffffff;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-menu a:hover::after, .nav-menu a.active::after {
+            width: 80%;
+        }
+
+        .nav-menu a:hover {
+            color: #ffffff;
+        }
+
+        .nav-menu a.active {
+            color: #ffffff;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: 60vh;
+        }
+
+        .hero-content h1 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title .graphic {
+            color: #ffffff;
+        }
+
+        .hero-title .designer {
+            color: #ffffff;
+        }
+
+        .hero-description {
+            color: #ffffff;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 400px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: transparent;
+            color: #04C5C5;
+            border: 2px solid #04C5C5; 
+            border-radius: 50px;
+            outline: none; 
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #04C5C5;
+            color: #082C2C;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(4, 197, 197, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #04C5C5;
+            border: 2px solid #04C5C5; 
+            border-radius: 50px;
+            outline: none; 
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #04C5C5;
+            color: #082C2C;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(4, 197, 197, 0.3);
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            box-shadow: #04C5C5;
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: translateX(130px);
+        }
+
+        .hero-image:hover {
+            transform: translateY(-2px);
+            box-shadow: #04C5C5;
+            color: #04C5C5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            gap: 40px;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container h1 {
+            color: #ffffff;
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            justify-content: center;
+        }
+
+        .main-content {
+            background: transparent;
+            border: 2px solid #04C5C5; 
+            outline: none;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px #04C5C5;
+            font-family: 'Poppins', sans-serif;
+            text-align: left;
+            transition: all 0.5s ease;
+        }
+
+        .main-content:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(4, 197, 197, 0.3);
+        }
+
+        .main-content h1 {
+            color: #ffffff;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .intro-text {
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: justify;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .what-i-do {
+            margin-top: 30px;
+        }
+
+        .what-i-do h2 {
+            color: #ffffff;
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .what-i-do p {
+            color: #ffffff;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .skills-list {
+            margin-top: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .skills-list ul {
+            list-style: none;
+            padding-left: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .skills-list li {
+            color: #ffffff;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .skills-list li:before {
+            content: "•";
+            color: #ffffff;
+            position: absolute;
+            left: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .skills-section {
+            background: transparent;
+            border: 2px solid #04C5C5; 
+            outline: none;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px #04C5C5;
+            text-align: left;
+            transition: all 0.5s ease;
+            width: 1160px;
+        }
+
+        .skills-section:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(4, 197, 197, 0.3);
+        }
+
+        .skills-section h2 {
+            color: #2c6e5b;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .skills-grid {
+            justify-content: center;
+            display: flex;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .project-button {
+            background-color: transparent;
+            color: #04C5C5;
+            border: 2px solid #04C5C5; 
+            border-radius: 50px;
+            outline: none; 
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 50px;
+            display: block;
+            width: max-content;
+        }
+
+        .project-button:hover {
+            background-color: #04C5C5;
+            color: #082C2C;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(4, 197, 197, 0.3);
+        }
+
+        .experience{
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .experience-card {
+            background: transparent;
+            border: 2px solid #04C5C5; 
+            outline: none;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px #04C5C5;
+            text-align: left;
+            transition: all 0.5s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 25px;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(4, 197, 197, 0.3);
+        }
+
+        .experience-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .experience-content h3 {
+            color: #ffffff;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .experience-content p {
+            color: #BFBFBF;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .experience-img {
+            width: 200px;
+            height: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .experience-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .experience-card:hover .experience-img img {
+            transform: scale(1.05);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #004747 0%, #018B8B 100%);
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-item a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-item a:hover {
+            color: #018B8B;
+        }
+
+        .footer-icon {
+            font-size: 1rem;
+        }
+
+        @media screen and (max-width: 1024px) {
+        .main-container {
+            padding: 3rem 1.5rem;
+        }
+        
+        .hero-section {
+            gap: 3rem;
+            min-height: 50vh;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+        }
+        
+        .container h1 {
+            font-size: 2.5rem;
+        }
+        
+        .main-content,
+        .skills-section {
+            padding: 2.5rem;
+            max-width: 100%;
+        }
+        
+        .experience-card {
+            padding: 2.5rem;
+        }
+        
+        .skills-grid {
+            gap: 2rem;
+        }
+    }
+
+    /* Tablets (481px - 768px) */
+    @media screen and (max-width: 768px) {
+        .nav-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #004747 0%, #018B8B 100%);
+            flex-direction: column;
+            padding: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-menu.active {
+            display: flex;
+        }
+        
+        .nav-menu a {
+            padding: 1rem 2rem;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-menu a:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-toggle {
+            display: flex;
+        }
+        
+        .main-container {
+            padding: 2rem 1rem;
+        }
+        
+        .hero-section {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            text-align: center;
+            min-height: auto;
+        }
+        
+        .hero-content {
+            order: 2;
+        }
+        
+        .hero-image {
+            order: 1;
+            width: 60%;
+            height: 300px;
+            margin: 0 auto;
+            transform: none;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        
+        .hero-description {
+            max-width: 100%;
+        }
+        
+        .cta-buttons {
+            justify-content: center;
+        }
+        
+        .container {
+            padding: 2rem 1rem;
+            gap: 2rem;
+        }
+        
+        .container h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .main-content,
+        .skills-section {
+            padding: 2rem;
+        }
+        
+        .main-content h1 {
+            font-size: 1.5rem;
+        }
+        
+        .skills-section h2 {
+            font-size: 1.5rem;
+        }
+        
+        .skills-grid {
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        
+        .experience-card {
+            flex-direction: column;
+            padding: 2rem;
+            gap: 1.5rem;
+        }
+        
+        .experience-img {
+            width: 100%;
+            height: 200px;
+        }
+        
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            text-align: center;
+        }
+    }
+
+    /* Mobile Phones (320px - 480px) */
+    @media screen and (max-width: 480px) {
+        .nav-container {
+            padding: 0 1rem;
+        }
+        
+        .logo {
+            font-size: 1.3rem;
+        }
+        
+        .main-container {
+            padding: 1.5rem 0.5rem;
+        }
+        
+        .hero-title {
+            font-size: 2rem;
+        }
+        
+        .hero-content h1 {
+            font-size: 1rem;
+        }
+        
+        .hero-description {
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary,
+        .btn-secondary {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .hero-image {
+            width: 80%;
+            height: 250px;
+        }
+        
+        .container {
+            padding: 1.5rem 0.5rem;
+            gap: 1.5rem;
+        }
+        
+        .container h1 {
+            font-size: 1.8rem;
+        }
+        
+        .main-content,
+        .skills-section {
+            padding: 1.5rem;
+        }
+        
+        .main-content h1 {
+            font-size: 1.3rem;
+        }
+        
+        .skills-section h2 {
+            font-size: 1.3rem;
+        }
+        
+        .skills-grid {
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .skill-item {
+            min-width: 100px;
+        }
+        
+        .skill-item img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+        
+        .experience-card {
+            padding: 1.5rem;
+            gap: 1rem;
+        }
+        
+        .experience-content h3 {
+            font-size: 1.1rem;
+        }
+        
+        .experience-content p {
+            font-size: 0.9rem;
+        }
+        
+        .project-button {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            padding: 0 0.5rem;
+        }
+        
+        .footer-item {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Very Small Screens (below 320px) */
+    @media screen and (max-width: 320px) {
+        .hero-title {
+            font-size: 1.8rem;
+        }
+        
+        .container h1 {
+            font-size: 1.6rem;
+        }
+        
+        .main-content,
+        .skills-section,
+        .experience-card {
+            padding: 1rem;
+        }
+        
+        .hero-image {
+            width: 90%;
+            height: 200px;
+        }
+    }
+
+    /* Landscape Orientation for Mobile */
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+        .hero-section {
+            min-height: auto;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-title {
+            font-size: 2rem;
+        }
+        
+        .hero-image {
+            height: 200px;
+        }
+        
+        .container {
+            padding: 1.5rem 1rem;
+        }
+        
+        .container h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+    }
+
+    /* High DPI Displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .hero-image img,
+        .experience-img img,
+        .skill-item img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+    }
+
+    /* Accessibility and Motion Preferences */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+        
+        .hero-image:hover,
+        .main-content:hover,
+        .skills-section:hover,
+        .experience-card:hover,
+        .btn-primary:hover,
+        .btn-secondary:hover,
+        .project-button:hover,
+        .skill-item:hover {
+            transform: none;
+        }
+    }
+
+    /* Focus States for Accessibility */
+    .btn-primary:focus,
+    .btn-secondary:focus,
+    .project-button:focus {
+        outline: 2px solid #04C5C5;
+        outline-offset: 2px;
+    }
+
+    .nav-menu a:focus {
+        outline: 2px solid #ffffff;
+        outline-offset: 2px;
+    }
+
+    /* Print Styles */
+    @media print {
+        .header,
+        .footer,
+        .menu-toggle {
+            display: none;
+        }
+        
+        body {
+            background: white;
+            color: black;
+        }
+        
+        .main-content,
+        .skills-section,
+        .experience-card {
+            border: 1px solid #000;
+            box-shadow: none;
+            background: white;
+        }
+        
+        .hero-title,
+        .container h1,
+        .main-content h1,
+        .skills-section h2,
+        .experience-content h3 {
+            color: black;
+        }
+    }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="Kall’s Page.png" alt="logo">
+            </div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="home.html" class="active">Home</a></li>
+                    <li><a href="home.html#about-me">About Me</a></li>
+                    <li><a href="home.html#expert">Experience</a></li>
+                    <li><a href="project.html">Projects</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                ☰
+            </button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1>Hello, I'm Kalingga</h1>
+                <div class="hero-title">
+                    <div class="graphic">Graphic</div>
+                    <div class="designer">Designer</div>
+                </div>
+                <p class="hero-description">
+                    Since 2019, my work has been focused on the visual arts, encompassing digital graphics and documenting everyday life.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#about-me" class="btn btn-primary">Get to Know Me!</a>
+                    <a href="https://drive.google.com/file/d/1zijyg7yGUWJJhSwE92t9q8GcmL2lyrGM/view?usp=sharing" class="btn btn-secondary">Download CV</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="pict.png">
+            </div>
+        </section>
+    </main>
+
+    <div class="container">
+        <h1>About Me</h1>
+        <section id="about-me">
+            <main class="main-content">
+                <h1>Hey, Nice to meet you!</h1>
+                
+                <p class="intro-text">
+                    I'm a passionate Graphic Designer who has been immersed in the world of visual arts since 2019. My journey began with a simple fascination for how design transform ideas into compelling visual stories that resonate with people.
+                </p>
+                
+                <p class="intro-text">
+                    I believe that great design goes beyond aesthetics; it's about creating meaningful connections between brands and their audiences. My work focuses on the visual arts, encompassing digital graphics that not only look beautiful but also serve a purpose in documenting and enhancing everyday life.
+                </p>
+                
+                <div class="what-i-do">
+                    <h2>What I Do</h2>
+                    <p>Visual Communication is at the heart of everything I create. From brand identities to social media graphics, I specialize in:</p>
+                    
+                    <div class="skills-list">
+                        <ul>
+                            <li>Digital Graphics & Visual Identity</li>
+                            <li>Social Media Content Design (Instagram Stories, Feeds, Posts)</li>
+                            <li>Poster & Banner Design</li>
+                            <li>UI/UX Design Elements</li>
+                            <li>Brand Communication Materials</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="project.html" class="project-button">My Project</a>
+            </main>
+        </section>
+
+        <h1>Technical Skills</h1>
+        <div class="skills-section">
+            <div class="skills-grid">
+                <div class="skill-item skill-photoshop">
+                    <img src="Group 15.png" style="width: 100px; height: 100px;">
+                </div>
+                <div class="skill-item skill-figma">
+                    <img src="Group 16.png" style="width: 100px; height: 100px;">
+                </div>
+                <div class="skill-item skill-illustrator">
+                    <img src="Group 129.png" style="width: 100px; height: 100px;">
+                </div>
+                <div class="skill-item skill-canva">
+                    <img src="Group 14.png" style="width: 100px; height: 100px;">
+                </div>
+                <div class="skill-item skill-ibis">
+                    <img src="Group 17.png" style="width: 100px; height: 100px;">
+                </div>
+            </div>
+        </div>
+
+        <h1>Experiences</h1>
+        <section id="expert">
+            <div class="experience">
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>KBMDSI Kabinet Navakara</h3>
+                        <p style="color: #ffffff;"><i>Expert staff of the information and communication media department</i> | 2025 - Present</p>
+                        <p>As an expert staff member in the Media, Information, and Communication Department at KBMDSI FILKOM UB, I lead flagship programs such as the TikTok and Twitter initiatives. I am also responsible for designing the KBMDSI Magazine.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/IMG_0005.JPG" alt="Navakara">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>Hology 8.0</h3>
+                        <p style="color: #ffffff;"><i>Creative Staff</i> | June - October 2025</p>
+                        <p>As a member of the Creative Division, I am responsible for creating the designs required for the Hology 8.0 event. These designs include Instagram feed and story designs, among others, and are created in accordance with requests from other divisions.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/hology.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>SOS & STF 2025</h3>
+                        <p style="color: #ffffff;"><i>Deputy head of the documentation, design, and multimedia division</i> | June - October 2025</p>
+                        <p>As Deputy Chair of the Design and Documentation Division, I am responsible for dividing the division's tasks with the Division Chair, connecting staff with other divisions, resolving any issues that arise, and assisting other staff members with their duties.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/sos.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>PKKMB & SA FILKOM 2025</h3>
+                        <p style="color: #ffffff;"><i>Student discipline (DISMA) staff</i> | June - October 2025</p>
+                        <p>As a member of the Student Discipline Division, I am responsible for maintaining order during PKKMB activities. Additionally, I am responsible for mobilizing and evacuating new students.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/disma.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>FILKOM League 2025</h3>
+                        <p style="color: #ffffff;"><i>Documentation, design, and multimedia staff</i> | April - June 2025</p>
+                        <p>As a member of the Design and Documentation Division, I design and document activities during events. I also perform live editing to provide information about scores and MVPs during ongoing matches.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/FL.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>Mahasiswa Mengajar (WAJAR) 3.0</h3>
+                        <p style="color: #ffffff;"><i>Deputy head of the documentation, design, and multimedia division</i> | April - May 2025</p>
+                        <p>As Deputy Chair of the Design and Documentation Division, I am responsible for dividing the division's tasks with the Division Chair, connecting staff with other divisions, resolving any issues that arise, and assisting other staff members with their duties.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/wajar.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>ASCEND 2.0</h3>
+                        <p style="color: #ffffff;"><i>Documentation, design, and multimedia staff</i> | April - May 2025</p>
+                        <p>As a member of the Design and Documentation Division, I am responsible for designing social media content and documenting event activities.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/ascend.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>Makrab PTI 24</h3>
+                        <p style="color: #ffffff;"><i>Steering Comittee</i> | December 2024 - February 2025</p>
+                        <p>As the steering committee chair, I am responsible for monitoring the committee's overall performance, discussing issues with each coordinator, and providing feedback to improve and ensure the sustainability of the event.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/makrabPTI.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>Demisioner SwaraShakti</h3>
+                        <p style="color: #ffffff;"><i>Documentation, design, and multimedia staff</i> | December 2024</p>
+                        <p>As a member of the Design and Documentation Division, I design social media content and document event activities. Additionally, I create designs for the Shakti Voice resignation book.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/demis.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>Galaxia SMANTA Expo</h3>
+                        <p style="color: #ffffff;"><i>Chief executive officer</i> | July 2024 - January 2025</p>
+                        <p>As chief executive, I led and coordinated the SMA Negeri 1 Tawangsari Campus Expo, managing a committee of 42 people. I was responsible for strategic planning, coordinating across divisions, and ensuring that the event ran smoothly from preparation to evaluation. I successfully organized an expo that allowed students to learn about different colleges and their programs.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/Galaxia.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>PTI 24</h3>
+                        <p style="color: #ffffff;"><i>Vice Chair of the Class of 2024</i> | 2024 - Present</p>
+                        <p>I assist the class president in coordinating activities for the 2024 Information Technology Education Study Program, which has about 90 members. I help resolve various internal and external issues and provide the latest information related to lectures, student activities, and competitions.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/makrab.JPG" alt="PTI 24">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>KBMDSI Kabinet SwaraShakti</h3>
+                        <p style="color: #ffffff;"><i>Young staff of the information and communication media department</i> | October - December 2024</p>
+                        <p>As a young staff member, I participated in mentoring activities twice a week. I was also responsible for creating ID cards and lanyards for all young staff members. Additionally, I collaborated with the SwaraShakti Youth Cabinet staff team on creative initiatives that supported the organization's vision and mission.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/WhatsApp Image 2025-07-25 at 22.26.55_66886f11.jpg" alt="SwaraShakti">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>SKUTER Malang</h3>
+                        <p style="color: #ffffff;"><i>Publication, Design, and Documentation Division</i> | 2024 - Present</p>
+                        <p>As a member of the Publication and Documentation Team at SKUTER MALANG, I document every activity carried out by the organization, create content for various social media platforms, and manage the organization's Instagram account. This role hones my visual storytelling, digital content management, and creative video production skills to increase the organization's engagement and awareness.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/skuter.jpg" alt="skuter">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>Pamit Parti</h3>
+                        <p style="color: #ffffff;"><i>Event coordinator</i> | January - May 2024</p>
+                        <p>As an event coordinator, I am responsible for organizing the event from start to finish. This includes acting as the master of ceremonies' liaison officer, coordinating with the event division and other departments, communicating with vendors, and ensuring that the event runs smoothly.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/pamitparti.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>Arkananta</h3>
+                        <p style="color: #ffffff;"><i>Event coordinator</i> March - Decemebr 2023</p>
+                        <p>As an event coordinator, I am responsible for organizing the event from start to finish. This includes acting as the master of ceremonies' liaison officer, coordinating with the event division and other divisions, communicating with vendors, and ensuring the event runs smoothly.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/arkananta.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>Mandala Yudha 2022/2023</h3>
+                        <p style="color: #ffffff;"><i>Documentation and editing section</i> | 2022 - 2023</p>
+                        <p>As part of the Publication, Design, and Documentation Division, I manage Mandala Yudha's Instagram and TikTok accounts. I also regularly create designs for special occasions and Instagram feeds for Mandala Yudha's activities. I am also responsible for documenting all of Mandala Yudha's activities.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/mandala.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>OSIS SMAN 1 Tawangsari 2022/2023</h3>
+                        <p style="color: #ffffff;"><i>Chairman of the section on political organization and leadership education</i> | 2022 - 2023</p>
+                        <p>In this position, I supervise five members, who are divided into five work supervisors spread across five extracurricular activities at the school. I evaluate and supervise my members' performance and help resolve any issues that arise.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/2223.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>OSIS SMAN 1 Tawangsari 2021/2022</h3>
+                        <p style="color: #ffffff;"><i>In charge of training and leadership work</i> | 2021 - 2022</p>
+                        <p>In this position, I oversee the extracurricular activities of the Paskib Mandala Yudha club at the school. My duties include supervising these activities, evaluating work plans, and resolving issues as needed. I report on all of this at the OSIS general meeting and the school's extracurricular activities meeting.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/2122.jpg" alt="">
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="experience-content">
+                        <h3>Karang Taruna Sarana Bangun Praja</h3>
+                        <p style="color: #ffffff;"><i>Treasurer of Savings and Loans</i> | 2020 - 2024</p>
+                        <p>I manage residents' savings and loan records manually and digitally with a high degree of accuracy. I compile transparent monthly and annual financial reports for administrators and members and ensure that all cash inflows and outflows are accurately recorded. I also prepare and monitor the payment schedule for members' installments and coordinate with the Karang Taruna Chairman and other members to plan activities involving the organization's savings and loan funds.</p>
+                    </div>
+                    <div class="experience-img">
+                        <img src="Experience/IMG-20220816-WA0076.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span>Contact me:</span>
+                <div class="footer-item">
+                    <img src="mdi_whatsapp.png">
+                    <a href="https://wa.me/6281288061921" target="hello">+62 812 - 8806 - 1921</a>
+                </div>
+                <div class="footer-item">
+                    <img src="basil_gmail-outline.png"></img>
+                    <a href="mailto:kalinggasyafan@gmail.com">kalinggasyafan@gmail.com</a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <span>        </span>
+                <div class="footer-item">
+                    <img src="mdi_instagram.png"></img>
+                    <a href="https://instagram.com/klnggasn_" target="_blank">@klnggasn_</a>
+                </div>
+                <div class="footer-item">
+                    <img src="circum_linkedin.png">
+                    <a href="https://linkedin.com/in/kalingga-syafa/" target="_blank">linkedin.com/in/kalingga-syafa/</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        window.addEventListener("scroll", () => {
+        const sections = document.querySelectorAll("section[id]");
+        const navLinks = document.querySelectorAll(".nav-menu a");
+        let currentSection = "";
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop - 100; 
+            if (pageYOffset >= sectionTop) {
+                currentSection = section.getAttribute("id");
+            }
+        });
+
+        navLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === `#${currentSection}`) {
+                link.classList.add("active");
+            }
+        });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-menu a');
+            const sections = document.querySelectorAll('section[id]');
+            
+            function updateActiveNav() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+            
+                    if (window.pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                if (window.pageYOffset < 100) {
+                    current = 'home';
+                }
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+        
+                if (current === 'home' || current === '') {
+                    navLinks[0].classList.add('active'); 
+                } else if (current === 'about-me') {
+                    navLinks[1].classList.add('active'); 
+                } else if (current === 'expert') {
+                    navLinks[2].classList.add('active'); 
+                }
+            }
+            window.addEventListener('scroll', updateActiveNav);
+            updateActiveNav();
+        });
+    </script>
+</body>
+</html>

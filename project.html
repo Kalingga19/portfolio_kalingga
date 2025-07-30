@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kall's Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family:'Poppins', sans-serif;
+            background: #082C2C;
+            min-height: 100vh;
+        }
+
+        .header {
+            font-family:'Poppins', sans-serif;
+            background: linear-gradient(135deg, #004747 0%, #018B8B 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            height: 30px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            display: flex;
+            width: fit-content;
+            height: 25px;
+        }
+
+        .nav-menu {
+            font-family:'Poppins', sans-serif;
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #ffffff;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-menu a:hover::after, .nav-menu a.active::after {
+            width: 80%;
+        }
+
+        .nav-menu a:hover {
+            color: #ffffff;
+        }
+
+        .nav-menu a.active {
+            color: #ffffff;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-title {
+            font-family:'Poppins', sans-serif;
+            text-align: center;
+            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+        }
+
+        .description {
+            text-align: center;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            border: 2px solid #04C5C5;
+            background-color: transparent;
+            color: #04C5C5;
+            border-radius: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #04C5C5;
+            color: #082C2C;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(4, 197, 197, 0.3);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+            gap: 1.5rem; 
+            margin-bottom: 3rem;
+            align-items: stretch;
+        }
+
+        .project-card {
+            background: transparent;
+            border: 2px solid #04C5C5;
+            outline: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px #04C5C5;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%; 
+            display: block;
+            object-fit: cover;
+            max-height: 300px;
+        }
+
+        .project-card.landscape {
+            grid-column: span 2;
+        }
+
+        .project-card.landscape .project-image img {
+            max-height: 200px;
+        }
+
+        .project-card.portrait {
+            grid-column: span 1;
+        }
+
+        .project-card.portrait .project-image img {
+            max-height: 350px;
+        }
+
+        .project-card.square {
+            grid-column: span 1;
+        }
+
+        .project-card.square .project-image img {
+            max-height: 280px;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-title {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: #BFBFBF;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .project-category {
+            display: inline-block;
+            background-color: transparent;
+            border: 2px solid #04C5C5;
+            outline: none;
+            color: #04C5C5;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: auto;
+        }
+
+        .project-category:hover {
+            background-color: #04C5C5;
+            color: #082C2C;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(4, 197, 197, 0.3);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #004747 0%, #018B8B 100%);
+            color: white;
+            padding: 1.5rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-item a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-item a:hover {
+            color: #018B8B;
+        }
+
+        .footer-icon {
+            font-size: 1rem;
+        }
+
+        @media screen and (max-width: 1024px) {
+        .nav-container {
+            padding: 0 1.5rem;
+        }
+        
+        .main-container {
+            padding: 2.5rem 1.5rem;
+        }
+        
+        .page-title {
+            font-size: 2.2rem;
+        }
+        
+        .project-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .project-card.landscape {
+            grid-column: span 2;
+        }
+    }
+
+    /* Tablets (481px - 768px) */
+    @media screen and (max-width: 768px) {
+        .nav-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #004747 0%, #018B8B 100%);
+            flex-direction: column;
+            padding: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-menu.active {
+            display: flex;
+        }
+        
+        .nav-menu a {
+            padding: 1rem 2rem;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-menu a:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-toggle {
+            display: flex;
+        }
+        
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .description {
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-container {
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+        }
+        
+        .project-grid {
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.2rem;
+        }
+        
+        .project-card.landscape {
+            grid-column: span 1;
+        }
+        
+        .project-image {
+            height: 180px;
+        }
+        
+        .project-card.landscape .project-image,
+        .project-card.portrait .project-image,
+        .project-card.square .project-image {
+            height: 180px;
+        }
+        
+        .project-info {
+            padding: 1.2rem;
+        }
+        
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            text-align: center;
+        }
+    }
+
+    /* Mobile Phones (320px - 480px) */
+    @media screen and (max-width: 480px) {
+        .nav-container {
+            padding: 0 1rem;
+        }
+        
+        .logo {
+            font-size: 1.3rem;
+        }
+        
+        .main-container {
+            padding: 2rem 1rem;
+        }
+        
+        .page-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .description {
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-container {
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-btn {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+        }
+        
+        .project-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .project-card.landscape,
+        .project-card.portrait,
+        .project-card.square {
+            grid-column: span 1;
+        }
+        
+        .project-image {
+            height: 200px;
+        }
+        
+        .project-info {
+            padding: 1rem;
+        }
+        
+        .project-title {
+            font-size: 1rem;
+        }
+        
+        .project-description {
+            font-size: 0.85rem;
+        }
+        
+        .project-category {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+        }
+        
+        .footer {
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            padding: 0 1rem;
+        }
+        
+        .footer-item {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Very Small Screens (below 320px) */
+    @media screen and (max-width: 320px) {
+        .nav-container {
+            padding: 0 0.5rem;
+        }
+        
+        .main-container {
+            padding: 1.5rem 0.5rem;
+        }
+        
+        .page-title {
+            font-size: 1.6rem;
+        }
+        
+        .filter-btn {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.75rem;
+        }
+        
+        .project-info {
+            padding: 0.8rem;
+        }
+        
+        .footer-content {
+            padding: 0 0.5rem;
+        }
+    }
+
+    /* Landscape Orientation for Mobile */
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+        .page-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .description {
+            margin-bottom: 1rem;
+        }
+        
+        .filter-container {
+            margin-bottom: 1rem;
+        }
+        
+        .main-container {
+            padding: 1.5rem 1rem;
+        }
+    }
+
+    /* High DPI Displays */
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .project-image img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+    }
+
+    /* Accessibility and Motion Preferences */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+        
+        .project-card:hover {
+            transform: none;
+        }
+        
+        .filter-btn:hover,
+        .project-category:hover {
+            transform: none;
+        }
+    }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="Kall’s Page.png" alt="logo">
+            </div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="home.html#about-me">About Me</a></li>
+                    <li><a href="home.html#expert">Experience</a></li>
+                    <li><a href="project.html" class="active">Projects</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                ☰
+            </button>
+        </div>
+    </header>
+    <main class="main-container">
+        <h1 class="page-title">Project Gallery</h1>
+        <div class="description">
+            <p>Explore highlights from my design portfolio. This showcase features selected<br>projects that best represent my skills and creative approach.</p>
+        </div>
+
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="igs">Instastory Design</button>
+            <button class="filter-btn" data-filter="poster">Poster Design</button>
+            <button class="filter-btn" data-filter="feed">Feeds Instagram</button>
+            <button class="filter-btn" data-filter="banner">Banner Design</button>
+            <button class="filter-btn" data-filter="uiux">UI/UX Design</button>
+        </div>
+
+        <div class="project-grid" id="projectGrid">
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/Instagram story oprec fl.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Open Registration Instastory Design</h3>
+                    <p class="project-description">Design an Instagram story announcing the open registration period for futsal and basketball teams participating in the FILKOM League 2025 event.</p>
+                    <a href="https://drive.google.com/file/d/1gJ5heyBdpvQt8uAGnwzSckcDPQYYCTWG/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/Magajin Poster (2).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Launching Magazine</h3>
+                    <p class="project-description">This is a poster designed to announce the launch of the first volume of the KBMDSI (Keluarga Besar Mahasiswa Departemen Sistem Informasi) magazine, created by the Navakara cabinet.</p>
+                    <a href="https://drive.google.com/file/d/17Du9vGRgYUVtGabjm9J5SqJsr5KU41Jb/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/IGS QnA.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Frame Instastory Design</h3>
+                    <p class="project-description">This is an Instagram story frame design for the Q&A section at the Hology 8.0 event organized by SGE FILKOM UB.</p>
+                    <a href="https://drive.google.com/file/d/1JUw1HFzBGz35b5cPv4xqhglt5LtEzE5I/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/Poster FIX.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Open Registration Poster</h3>
+                    <p class="project-description">This is a poster design for the open registration of participants in the ASCEND 2.0 competition, which is being held by the PIT and PSDM departments of KBMDSI UB.</p>
+                    <a href="https://drive.google.com/file/d/1RZSKN635XCN-r3c309XHXY9xA1faWLPK/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="uiux">
+                <div class="project-image">
+                    <img src="ui ux/Untitled design (43).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">NutriLife Website</h3>
+                    <p class="project-description">This is the design for the NutriLife website, which provides education on balanced nutrition. It was created to fulfill the final assignment for the User Interface Design course.</p>
+                    <a href="https://www.figma.com/design/f7DvkKrdyav2vcGBnpEex2/Project-PAP?node-id=0-1&t=arm4kj0OfTHo33oZ-1">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="uiux">
+                <div class="project-image">
+                    <img src="ui ux/Untitled design (38).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Drakes Website</h3>
+                    <p class="project-description">This is the design for the Drakes website, which provides information about processed dragon fruit and soursop leaf products. It was created for the DEFINE Business Plan Competition held by Diponegoro University.</p>
+                    <a href="https://drive.google.com/drive/folders/10OzOHgZwc2_mNT6-OFb9WNavMrXEChEe?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="feed">
+                <div class="project-image">
+                    <img src="Feed MockUp/5.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Feed Instagram PILKETOS</h3>
+                    <p class="project-description">These are mockups and Instagram feed designs for the SMA Negeri 1 Tawangsari student council president election held during the 2022/2023 academic year.</p>
+                    <a href="https://drive.google.com/file/d/1Bdc2QAimiEzHMcqtGPaAegP6VNz91zTi/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="feed">
+                <div class="project-image">
+                    <img src="Feed MockUp/4.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Feed Instagram FILKOM League</h3>
+                    <p class="project-description">Design an Instagram feed to announce the match results and Most Valuable Player (MVP) players at the FILKOM 2025 league event.</p>
+                    <a href="https://www.instagram.com/filkom.league?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/PO JERSEY BASKET PTI.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Pre-Order Instastory Design</h3>
+                    <p class="project-description">Design an Instagram story for the pre-order of jerseys for each non-player study program at the FILKOM 2025 league event.</p>
+                    <a href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MzQzMTE3ODk0MDg4MzUy?story_media_id=3641027149488303977_57622778886&igsh=a2ZrcGNkajRkcWRy">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="banner">
+                <div class="project-image">
+                    <img src="banner/BriLink Banner (1).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Banner</h3>
+                    <p class="project-description">Professional banner design for BRILink showcasing modern financial services with clean typography and corporate branding elements.</p>
+                    <a href="https://drive.google.com/file/d/1vxf-J1lWt_fa5vzeQEcYd00hOK0Q3aHH/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="banner">
+                <div class="project-image">
+                    <img src="banner/ArkanantA (1).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Event Banner Dies Natalies SMAN 1 Tawangsari</h3>
+                    <p class="project-description">Design a banner for the stage backdrop at SMA Negeri 1 Tawangsari's 40th anniversary event with the theme "ARKANANTA."</p>
+                    <a href="https://drive.google.com/file/d/1RYPy6YThPVlc-aiBgQE-itUz64uG_yN4/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="banner">
+                <div class="project-image">
+                    <img src="banner/Hari Sejuta Pohon Sedunia.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">World Million Trees Day Banner</h3>
+                    <p class="project-description">Design a banner for the backdrop of the competition and tree-planting event held to commemorate World Tree Day 2023 at SMA Negeri 1 Tawangsari.</p>
+                    <a href="https://drive.google.com/file/d/1a8YbfrwypYl4CmxjITdACSU5RXiA3GwB/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="banner">
+                <div class="project-image">
+                    <img src="banner/SMANTA (1).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">SMANTA GOWES Banner</h3>
+                    <p class="project-description">This is a banner design for the SMANTA GOWES event, which is part of SMA Negeri 1 Tawangsari's 40th anniversary celebrations.</p>
+                    <a href="https://drive.google.com/file/d/1P35XtAILmWkCilBPFKCue_Sau9XGvn0r/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="banner">
+                <div class="project-image">
+                    <img src="banner/Buka Bersama.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Ramadhan Banner</h3>
+                    <p class="project-description">Design a banner for the backdrop of the 2023 Iftar event for alumni, retirees, and administrators of the Mandala Yudha organization at SMA Negeri 1 Tawangsari.</p>
+                    <a href="https://drive.google.com/file/d/1fk_kOW71OzuED6VS2rNgQ7BARu_cpCWF/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="banner">
+                <div class="project-image">
+                    <img src="banner/Skuter Malang (1).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Banner SKUTER Malang Goes to School</h3>
+                    <p class="project-description">The design of the banner stand for the "SKUTER Goes to School" event, which will be held at several high schools in Sukoharjo Regency.</p>
+                    <a href="https://drive.google.com/file/d/1sOdV-FaW7aWv7ro5cZ0mly6zuhAJrkgJ/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="banner">
+                <div class="project-image">
+                    <img src="banner/1.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Banner "Sang Gedhang"</h3>
+                    <p class="project-description">This banner stand was designed for the business "Sang Gedhang," which offers modern, banana-based products. The playful, bright, and energetic visual approach was created to attract the attention of young consumers and Gen Z.</p>
+                    <a href="https://drive.google.com/file/d/17_C8gWvpRqXxPfdqhgMFYYXk6QlYOZJN/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/Add a heading.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Pre-Order T-Shirt</h3>
+                    <p class="project-description">Design a poster for pre-order T-shirts commemorating the 40th anniversary of SMA Negeri 1 Tawangsari.</p>
+                    <a href="https://drive.google.com/file/d/1WDXRtOBsHmnwiyofuKpfOdCKyEpdaFzr/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="feed">
+                <div class="project-image">
+                    <img src="Feed MockUp/3.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Feeds Instagram WAJAR 3.0</h3>
+                    <p class="project-description">This is the Instagram feed design for the WAJAR (Mahasiswa Mengajar) 3.0 event, which was organized by the KP KBMDSI department of the Navakara cabinet FILKOM UB.</p>
+                    <a href="https://www.instagram.com/wajar.kbmdsi?igsh=MWN4bmdmMGs3bmIwMA==">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/17 an.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Indonesia's 78th Independence Day</h3>
+                    <p class="project-description">This poster was designed to celebrate Indonesia's 78th Independence Day. It is intended to provide information about a series of children's competitions and a Tirakatan (traditional ceremony), held in the community.</p>
+                    <a href="https://drive.google.com/file/d/1CpksHgQeNZkvtq5wRClQp91izNGj7gB7/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/OPEN.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Open Recruitment Poster</h3>
+                    <p class="project-description">This poster was created to share information about recruiting staff for the SOS (Synergy of Symphony) committee. SOS is an orientation activity for the Information Systems Department at FILKOM UB.</p>
+                    <a href="https://drive.google.com/file/d/1Y0nCVGChH_FSj3sVLyCyIzFcMygniksY/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/Instagram story - 1.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Frame Instastory FIGTIS</h3>
+                    <p class="project-description">This design was created as an Instagram Story template to celebrate the departure of the KBMDSI (Keluarga Besar Mahasiswa Departemen Sistem Informasi) SwaraShakti Cabinet administrators. This design is used to create a frame for live reports of the event.</p>
+                    <a href="https://drive.google.com/file/d/1H-bio3AqvLzgP4iiwGBd63Jx6nw1M4BK/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/1.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Instastory PILKETUM</h3>
+                    <p class="project-description">This Instagram story was designed to inform viewers about the election of the Mandala Yudha organization's chairperson at Tawangsari State Senior High School 1.</p>
+                    <a href="https://drive.google.com/file/d/16zQx40uO4ePZ9AFSmB7nNXaFMnfv2-d0/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="feed">
+                <div class="project-image">
+                    <img src="Feed MockUp/1.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Feed Open Registration</h3>
+                    <p class="project-description">The Instagram feed is designed to inform participants about open registration for the ASCEND 2.0 competition, which is organized by the PIT and PSDM departments of KBMDSI FILKOM UB.</p>
+                    <a href="https://www.instagram.com/skillcultivation.ub?igsh=bnE2ZzF1Yjd2eTF5">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="feed">
+                <div class="project-image">
+                    <img src="Feed MockUp/10.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Feed Mandala Yudha</h3>
+                    <p class="project-description">From 2022 to 2023, I created a design for the Instagram feed of the Mandala Yudha organization at SMA Negeri 1 Tawangsari. The design includes several organizational activities and the organizational structure.</p>
+                    <a href="https://www.instagram.com/mandalayudha_id?igsh=MTllMDhreWJkYTB6ag==">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="uiux">
+                <div class="project-image">
+                    <img src="ui ux/wildlens.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Wildlens Apps</h3>
+                    <p class="project-description">This is the UI design for the WildLens mobile app, which is an animal detection application. The design was used in the BIOLEXION LKTI competition, which was held by the Bandung Institute of Technology.</p>
+                    <a href="https://www.figma.com/design/c0B0fyl2oaz95AlmbQwIA7/Biolex?node-id=30-2&t=dKZQr8EYmOFysQN9-1">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="uiux">
+                <div class="project-image">
+                    <img src="ui ux/poster ecom-c (15).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Ecom-C Apps</h3>
+                    <p class="project-description">This is the UI design for the Ecom-C mobile app, which is used for recording, buying, and selling maggots. This design was submitted to the LKTIN FILM 2025 competition, which was held by Sebelas Maret University.</p>
+                    <a href="https://www.figma.com/design/B6Uu5L97acMxP1Ojyzr3SM/Ecom-C?node-id=465-646&t=GOA6QlndukgPcpBO-1">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/Semarak Kemerdekaan.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Indonesia's 77th Independence Day</h3>
+                    <p class="project-description">This poster was designed in celebration of Indonesia's 77th Independence Day. It provides information about competitions for children and mothers, as well as the traditional Tirakatan community ceremony.</p>
+                    <a href="https://drive.google.com/file/d/18xu7jwHzkpM8qW4mFCt1C7KgVdjJIytX/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/pamflet1.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Activity Information Poster</h3>
+                    <p class="project-description">This poster was designed to inform people about the activities that will be carried out in commemoration of World Tree Day 2023 at SMA Negeri 1 Tawangsari.</p>
+                    <a href="https://drive.google.com/drive/folders/1WmvjJcXYUpgToSNm5-SRLMkGlE4S4zvB?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/Debat.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Instastory Announcement</h3>
+                    <p class="project-description">This Instagram story was designed to announce the winners of the SMA Negeri 1 Tawangsari student council chairperson and vice chairperson election for the 2023/2024 term.</p>
+                    <a href="https://drive.google.com/file/d/1PSMnKzXfR2RqxZprejnFcESB9J8OS92f/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/Tambahkan judul.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Ramadhan Gathering Invitation</h3>
+                    <p class="project-description">The Instagram story was designed to share information about the Buka Puasa Bersama invitation, which is part of Mandala Yudha SMA Negeri 1 Tawangsari's annual agenda.</p>
+                    <a href="https://drive.google.com/file/d/1dWLjxRRmjB770xkGGiE1055ARaUKiy4q/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="feed">
+                <div class="project-image">
+                    <img src="Feed MockUp/7.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Feed MPLS 2023</h3>
+                    <p class="project-description">The Instagram feed is designed to provide information about the school environment orientation period at SMA Negeri 1 Tawangsari for the 2023/2024 academic year.</p>
+                    <a href="https://drive.google.com/file/d/1p9ykRreWlh1mZHOVaDC5fn81h5CE3NEU/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="feed">
+                <div class="project-image">
+                    <img src="Feed MockUp/6.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Open Recruitment OSMANTA</h3>
+                    <p class="project-description">The Instagram feed is designed to provide information about the open recruitment of student council members at SMA Negeri 1 Tawangsari for the 2023/2024 term.</p>
+                    <a href="https://drive.google.com/file/d/1OO0sdnK_cRCLLzhqaFNk3P_jZpw6zUPh/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/pamflet7.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Classmeet Poster's</h3>
+                    <p class="project-description">This poster was designed to provide information about the series of activities organized by the Student Council of State Senior High School 1 Tawangsari for Class Meeting and Marketing Day in 2023.</p>
+                    <a href="https://drive.google.com/drive/folders/1Pr38KNx8jS1I_2qJy3PoZeDL4DleBbaF?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="uiux">
+                <div class="project-image">
+                    <img src="ui ux/Screenshot 2025-07-24 182819.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">SABI Apps</h3>
+                    <p class="project-description">This is the UI design for the SABI application, a waste exchange and recording program. This design was created for an internal assignment with the RAION Community FILKOM UB SME.</p>
+                    <a href="https://drive.google.com/drive/folders/1y3eaNojdMo53pXqSABBQBYqMpJXVbBF9?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="uiux">
+                <div class="project-image">
+                    <img src="ui ux/Redesign.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Re-Design SiApel</h3>
+                    <p class="project-description">This is a redesign of the mobile version of the SiApel Malang City website, which is an administrative service website for the city of Malang. This design was created to fulfill the final assignment for the User Interface Design course.</p>
+                    <a href="https://drive.google.com/drive/folders/112emPZ-6HuXck6Ti3NqeN8miPK1rEvJm?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/pamflet9.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Student Council Campaign Poster</h3>
+                    <p class="project-description">This poster was designed as part of a visual campaign for the candidates running for Chair and Vice Chair of the Student Council for the 2023/2024 term. It aims to attract students' attention.</p>
+                    <a href="https://drive.google.com/drive/folders/1HuOL8CsKm_FTevDnZmi5R92y3BuEG-YM?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/Filter Skuter.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Instastory Frame SKUTER</h3>
+                    <p class="project-description">Design an Instagram Story template for live reports on the "SKUTER Goes to School" event, which will be held at several schools in Sukoharjo Regency.</p>
+                    <a href="https://drive.google.com/file/d/1ILGm8m-bRO_9LZwAjV4hxzamqF9uuEaA/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/SONGFESS.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Template Instastory SongFess</h3>
+                    <p class="project-description">Design an Instagram Story template for the ETERSCIO Instagram account (the account for the 12th grade science class at Tawangsari 1 Public High School) to create SongFess (Song Menfess), which was trending at the time.</p>
+                    <a href="https://drive.google.com/file/d/1J3P7092FgcGXwFmsenBmkprUi6hvygjp/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="feed">
+                <div class="project-image">
+                    <img src="Feed MockUp/8.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Classmeet Documentation Feeds</h3>
+                    <p class="project-description">The Instagram feed is designed to share documentation of the excitement of class meetings and marketing days at SMA Negeri 1 Tawangsari in 2023.</p>
+                    <a href="https://drive.google.com/file/d/1qTwfOFTjXWXx79KFmnqXzvQfcpGck_Jd/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/SKUTER (5).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Announcement Instastory</h3>
+                    <p class="project-description">The Instagram story was designed to announce that SKUTER will have a booth at the BERKEMAS #11 event, which will be held at SMA Negeri 1 Sukoharjo.</p>
+                    <a href="https://drive.google.com/file/d/1bdLNEoIPcDfVcVRyuFrEXP0oCye7GZq6/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/Add a heading.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Birthday Instastory</h3>
+                    <p class="project-description">This Instagram story was designed to commemorate Reva Fidela's (now ex member JKT48) 17th birthday in 2023.</p>
+                    <a href="https://drive.google.com/file/d/1iGag50MX7MDf_MPm7zizU-0Y4e6iPySR/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/L18rarianOfFreydom.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Birthday Instastory</h3>
+                    <p class="project-description">This Instagram story was designed to commemorate JKT48 member Freyanashifa's 18th birthday in 2024.</p>
+                    <a href="https://drive.google.com/file/d/1aZClYNjXdE7O8_tdjHexYdK76IDlTsO0/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/charlie & katie are.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Kartini's Day Instastory</h3>
+                    <p class="project-description">This is an Instagram story design created to commemorate Kartini Day in 2023 for the Mandala Yudha Instagram account.</p>
+                    <a href="https://drive.google.com/file/d/1UpvBHeCO6oD_zGceU435bhFH3lZC7eiw/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/pemenang.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Announcement Instastory</h3>
+                    <p class="project-description">This Instagram story was designed to announce the winners of the creative video competition held in commemoration of World Tree Day 2023 at SMA Negeri 1 Tawangsari.</p>
+                    <a href="https://drive.google.com/file/d/1c1pHAyZZmjZmyURdMVji8Ev1zkVNZzQo/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/HAPPY BIRTHDAY.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Template Birthday Instastory</h3>
+                    <p class="project-description">This is an Instagram story template design to wish all 12th grade Mathematics and Science 1 students at Tawangsari 1 State High School a happy birthday.</p>
+                    <a href="https://drive.google.com/file/d/1KZRHG5s7p-QIjD87B9TPgImsp0wptWZY/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/Dirgahayu.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Indonesia Independence Day</h3>
+                    <p class="project-description">Instagram Story design commemorating Indonesia's 78th Independence Day for the Mandala Yudha Instagram account.</p>
+                    <a href="https://drive.google.com/file/d/1ug8PRtLXqvXHeOB8pZNcJKxa0nUTbrsn/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/Tahun Baru Islam.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Islamic New Year Instastory</h3>
+                    <p class="project-description">This is an Instagram story designed to commemorate the Islamic New Year 1445H for the Mandala Yudha Instagram account.</p>
+                    <a href="https://drive.google.com/file/d/1ynesJo3vd1C8LrGpT9Uqy4rmtJwkJbVn/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/IGS CS SOS.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Instastory Coming Soon</h3>
+                    <p class="project-description">This is an Instagram story designed to announce the upcoming Synergy of Symphony and Shaping the Future 2025 events. These are orientation programs for the Information Systems Department at FILKOM UB.</p>
+                    <a href="https://drive.google.com/file/d/1v11BH2P6CMjPoh1wgHTkupB2lroLmDTf/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/IGS Announcement.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Template Instastory Announcement</h3>
+                    <p class="project-description">Design an Instagram Story template to share information about the Hology 8.0 event organized by SGE FILKOM UB.</p>
+                    <a href="https://drive.google.com/file/d/1k_TRV84nB2u5d1f3DGEdPPemsEHCuqyP/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="igs">
+                <div class="project-image">
+                    <img src="IGS/Bday template.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Template Birthday Instastory 2</h3>
+                    <p class="project-description">Design an Instagram Story template to wish all members of SKUTER Malang a happy birthday. SKUTER Malang is a regional student forum organization from Sukoharjo Regency.</p>
+                    <a href="https://drive.google.com/file/d/1iNFoXzQrxKgYttFjlX4YKcC4ogRbsgRa/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/poster ecom-c (16).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">ECOM-C's Poster</h3>
+                    <p class="project-description">This is a poster design for the ECOM-C application, which is used for Expo activities at the 2025 UNS "Festival Ilmiah Mahasiswa" (FILM) competition.</p>
+                    <a href="https://drive.google.com/file/d/1aXkmGBHFMZp5I3GerHcEI7Gdc9Duqz5k/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/SABI – Sampah Bisa Jadi Berarti SABI adalah aplikasi inovatif yang membantu kamu mengelola sampah dengan lebih mudah dan bermanfaat. Dengan fitur seperti tukar poin jadi uang, donasi, marketplace .png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">SABI's Poster</h3>
+                    <p class="project-description">This is the poster design for the SABI application, which was used for a presentation at the RAION Community FILKOM UB SME internship.</p>
+                    <a href="https://drive.google.com/file/d/1PXgwHNm6tfVq9h_CAcHYoT6vucuA296r/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/Automasi Update dan Instalasi Software Menggunakan Scripting OS di Windows.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Infographic Poster</h3>
+                    <p class="project-description">This infographic poster was designed to explain the importance of scripting and OS automation in technology and fulfill the requirements of the Platform Technology course.</p>
+                    <a href="https://drive.google.com/file/d/1yiRIQggbpnLBDBoHCJLTi2NacfNO71D1/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/Infografis Project Akhir Agama Kel 4  (1).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Infographic Poster 2</h3>
+                    <p class="project-description">This infographic poster was designed to explain the results of a student survey for a final assignment in an Islamic Studies course.</p>
+                    <a href="https://drive.google.com/file/d/1hBIjQKAFFexWn75v3ShQCVodhkJKHWAF/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="feed">
+                <div class="project-image">
+                    <img src="Feed MockUp/Feed MockUp.png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Hidden Treasure Feed</h3>
+                    <p class="project-description">The Instagram feed was designed to fulfill the faculty orientation assignment, which had the theme "Hidden Treasures of My Faculty."</p>
+                    <a href="https://drive.google.com/file/d/171TLmVtz1EmBaZxetDIWuvut1nAMSsMB/view?usp=drive_link">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="poster">
+                <div class="project-image">
+                    <img src="Pamflet/Identification (4).png">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Recording What Is Almost Lost</h3>
+                    <p class="project-description">Design a poster with the theme “Digitalization of Conservation: Technology for a Lasting Legacy” for the AKSEN Poster Competition 2025, organized by HMJBD FEB Sebelas Maret University.</p>
+                    <a href="https://drive.google.com/file/d/18fFYceJRWUp4N63hQBKSaegr_mBfCXWg/view?usp=sharing">
+                        <span class="project-category">View Design</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span>Contact me:</span>
+                <div class="footer-item">
+                    <img src="mdi_whatsapp.png">
+                    <a href="https://wa.me/6281288061921" target="hello">+62 812 - 8806 - 1921</a>
+                </div>
+                <div class="footer-item">
+                    <img src="basil_gmail-outline.png"></img>
+                    <a href="mailto:kalinggasyafan@gmail.com">kalinggasyafan@gmail.com</a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <span>        </span>
+                <div class="footer-item">
+                    <img src="mdi_instagram.png"></img>
+                    <a href="https://instagram.com/klnggasn_" target="_blank">@klnggasn_</a>
+                </div>
+                <div class="footer-item">
+                    <img src="circum_linkedin.png">
+                    <a href="https://linkedin.com/in/kalingga-syafa/" target="_blank">linkedin.com/in/kalingga-syafa/</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+        });
+
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+
+                const filterValue = this.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.5s ease-in-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        projectCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        function setCardOrientation() {
+            const cards = document.querySelectorAll('.project-card');
+            
+            cards.forEach(card => {
+                const img = card.querySelector('.project-image img');
+                if (img) {
+                    img.onload = function() {
+                        const aspectRatio = this.naturalWidth / this.naturalHeight;
+        
+                        card.classList.remove('landscape', 'portrait', 'square');
+
+                        if (aspectRatio > 1.3) {
+                            card.classList.add('landscape');
+                        } else if (aspectRatio < 0.8) {
+                            card.classList.add('portrait');
+                        } else {
+                            card.classList.add('square');
+                        }
+                    };
+
+                    if (img.complete) {
+                        img.onload();
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', setCardOrientation);
+    </script>
+</body>
+</html>
