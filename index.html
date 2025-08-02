@@ -202,7 +202,7 @@
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
-            transform: translateX(130px);
+            margin-left: auto;
         }
 
         .hero-image:hover {
@@ -670,6 +670,8 @@
         .hero-image {
             width: 80%;
             height: 250px;
+            margin: 0 auto;
+            display: block;
         }
         
         .container {
@@ -695,13 +697,17 @@
         }
         
         .skills-grid {
-            flex-direction: column;
+            display: flex;
+            flex-direction: row; 
+            flex-wrap: wrap;
+            justify-content: center;
             align-items: center;
             gap: 1rem;
         }
         
         .skill-item {
             min-width: 100px;
+            flex: 0 1 auto;
         }
         
         .skill-item img {
