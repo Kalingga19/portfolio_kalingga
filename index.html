@@ -208,9 +208,15 @@
         .hero-image:hover {
             transform: translateY(-2px);
             box-shadow: #04C5C5;
-            color: #04C5C5;
         }
 
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -571,8 +577,8 @@
         
         .hero-image {
             order: 1;
-            width: 30%;
-            height: 150px;
+            width: 60%;
+            height: 300px;
             margin: 0 auto;
             transform: none;
         }
@@ -668,10 +674,10 @@
         }
         
         .hero-image {
-            width: 50px !important;
-            height: 50px !important;
-            margin: 0 auto;
-            display: block;
+            width: 150px !important;
+            height: 150px !important;
+            margin: 0 auto !important;
+            display: block !important;
         }
         
         .container {
@@ -700,20 +706,21 @@
             display: flex;
             flex-direction: row; 
             flex-wrap: nowrap;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
             overflow-x: auto;
         }
         
         .skill-item {
             min-width: 60px;
             flex: 0 0 auto;
+            text-align: center;
         }
         
         .skill-item img {
-            max-width: 40px;
-            max-height: 40px;
+            max-width: 40px !important;
+            max-height: 40px !important;
         }
         
         .experience-card {
@@ -761,8 +768,8 @@
         }
         
         .hero-image {
-            width: 90%;
-            height: 200px;
+            width: 120px !important;
+            height: 120px !important;
         }
     }
 
