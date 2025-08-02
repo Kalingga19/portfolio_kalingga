@@ -668,8 +668,8 @@
         }
         
         .hero-image {
-            width: 100px !important;
-            height: 100px !important;
+            width: 50px !important;
+            height: 50px !important;
             margin: 0 auto;
             display: block;
         }
@@ -699,20 +699,21 @@
         .skills-grid {
             display: flex;
             flex-direction: row; 
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             justify-content: center;
             align-items: center;
             gap: 1rem;
+            overflow-x: auto;
         }
         
         .skill-item {
-            min-width: 100px;
-            flex: 0 1 auto;
+            min-width: 60px;
+            flex: 0 0 auto;
         }
         
         .skill-item img {
-            max-width: 50px;
-            max-height: 50px;
+            max-width: 40px;
+            max-height: 40px;
         }
         
         .experience-card {
